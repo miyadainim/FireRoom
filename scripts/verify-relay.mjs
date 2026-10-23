@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+const origin=process.env.FIREROOM_TEST_ORIGIN??'http://127.0.0.1:8787';
+const create=await fetch(`${origin}/api/session`,{method:'POST'});assert.equal(create.status,200);
+const {sessionId}=await create.json();const endpoint=`${origin}/api/frame?session=${sessionId}`;
+assert.equal(await (await fetch(endpoint)).json(),null);
+const frame={schemaVersion:1,sessionId,sequence:0,timestampMs:100,tracking:'lost',stance:'orthodox',mirrored:false,landmarks:[]};
+assert.equal((await fetch(endpoint,{method:'POST',body:JSON.stringify(frame)})).status,200);
+assert.deepEqual(await (await fetch(endpoint)).json(),frame);
+assert.equal((await fetch(endpoint,{method:'POST',body:JSON.stringify(frame)})).status,409);
+assert.equal((await fetch(endpoint,{method:'POST',body:'not json'})).status,400);
+assert.equal((await fetch(`${origin}/api/frame?session=invalid`)).status,404);
+await new Promise(r=>setTimeout(r,800));assert.equal(await (await fetch(endpoint)).json(),null);
+console.log('PASS: relay create, empty, publish/read, duplicate, malformed, wrong session, expiry (8 assertions). Synthetic data only.');

@@ -1,0 +1,28 @@
+# Viewpoint-evidence-v3 correction results — October19
+
+## Changes
+
+Audit confirmed two distinct errors in v2: storing viewpoint geometry before initial settled guard, and treating shoulder-only scale/roll as a whole-image setupchange. Existing guarddetector and movement/extension separation preserved. No Coach/Arcade routing changes.
+
+Version`viewpoint-evidence-v3` stores its setup geometry after initial GuardEstimatorguard. Existing25%shoulderscale/.3radshoulderroll now trigger stickyviewpointuncertainty, notautomaticcycleloss. Conservative interruption additionallyrequiresconsistent2Dsimilaritytransform across at least6visiblepairs amongnose,shoulders,hips; referencepairlength>.02,scaleagreementwithin15%,rotationwithin.1rad. These are provisionalgeometryconsistencybounds, notproofactualcameramotion. ExplicitcameraID/session/stance/order/gapandlostwristchecksretained. Materialrigidscale/rotationtestsremain. Limitedanchorvisibilityreducesabilitytoidentifyviewchange; warningnotproofviewcompatible.
+
+OutputevidenceaddsviewpointUncertain andextensionAssessmentEligible (necessarygeometryprerequisiteonly, notapprovalofreliableform/ref). Warningstickyuntilreset; extensionassessmentstillrequiresseparatelyreviewedcompatiblecalibrationanddoesnotaffectcompletion.
+
+## Replays, fixed v3
+
+|Export/model|v2completed|v3completed|Interpretation|
+|---|---:|---:|---|
+|5Full12Hz|8|8|Eightuserconfirmedcyclespreserved; stationary43sfalsepartialabsent;loweringuncertain|
+|9Full8Hz|6|8|Firstjabandfirstcrossrecovered atcorrecthand/time;extra noncompletedcandidatesremain|
+|10Full12Hz|6|8|Samephysicalvideoas9;firstjab/crossrecovered;guardadjustments/loweringuncertaintyremain|
+|5Heavy12Hz|7|8|Notindependentlyreviewedpositives|
+|9Heavy8Hz|6|6|Missesremain;noall-modelsuccessclaim|
+|10Heavy12Hz|6|7|Includesleftcandidate26.83duringrightcross—wrong-handrisk,not7correctpunchclaim|
+
+Full9stillhasrightpartial7.75–9.625s nearfirstjabguardrecovery, plusfourguard-adjustmentoutcomes. Full10hasfourguardadjustmentsandloweringuncertain. No extraFullcompletedoutsideeightintendedpunchperiods intheseoutputs; withoutcompleteindependentreviewednegativeexposure,thisisnotzerofalsepositives. Full5usercorrespondenceisconfirmed;9/10videoqualitativereviewnotpreciseboundaryGT. Fresh9/10arenowdevelopmentregressions afterusingtheirfailurecases; newheldoutphysicalvalidationrequiredforgeneralization. v2exportsretainedhistorical.
+
+## Verification
+
+Root337/337testsPASS36files; productionbuildPASS90modules. Focused19andindependent24policytestsPASS; unchangedglobalrigidtransformabstentioncasesplusnewshoulder-onlyrotation/foreshorteningandpre-guardsetupcase. Bundle-sizeadvisoryremains. Derivedevidence movement-cycle/viewpoint-v3-replays.json. Originalrawdataunchanged.
+
+Gate automatedcorrectionPASS; targetedFullreplayPASS; physicalprecision/recall/FP/timingandformaccuracyNOTVERIFIED. No automatedfull-extensiongradeenabled. Existingraw10canbereimportedandreplayed;downloadcontainsversion/generatedAt. NoMediaPipererun/newrecordingneededtoconfirmclientversion. Laterfrozen-v3freshrecordingrequiredforphysicalclaims.

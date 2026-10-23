@@ -1,0 +1,5 @@
+# Trimmed baseline (8) — October 19
+
+Export validates. Same480samples/model as(7), labels only changed:guard8–9s,leftfull16–17,rightfull22–23,leftshort31–33,rightshort35–37. No shared endpoints. Recomputed current analyzer. Full median/MAD imageleft guard35.05/.56 extended75.50/.80 short67.34/.45px;right38.13/.42,107.20/1.11,82.74/1.54px. Worldleft28.4/.4,43.7/.3,33.0/1.4estimatedcm;right28.1/.3,35.3/.6,26.1/1.5.13samples for1secondholds;25for2secondshort holds, notindependenttrials. Full2Dfullrange73.64–77.73 vs short66.03–69.00left;right104.81–110.95 vs52.95–85.93. Rightshortstillhaslowoutlier/transition; mediansdo notproveallframesstable. Inferredworld3Dgroundtruthabsent; modelworldestimatesdiffer.
+
+Compared(7), central variabilityreduced forguard andmostfullholds. Retainasprovisionalpersonalbaselineforsoftwarecomparisons. Do notrequestrepeatedrelabelsolelytoforcealloutliersaway. Next compareheldoutattemptsandreportuncertainty; notvalidatedgrading, physicalaccuracyorclassifiertraining. Rawdataunchanged; no productionedits. Derived trimmed-metrics.json.

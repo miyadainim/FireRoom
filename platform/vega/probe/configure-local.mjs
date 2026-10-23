@@ -1,0 +1,9 @@
+// Local simulator viewer; the phone always uses its reachable HTTPS LAN origin.
+import {readFileSync,writeFileSync} from 'node:fs';
+const phone=new URL(process.argv[2]);
+if(phone.protocol!=='https:'||phone.username||phone.password||['localhost','127.0.0.1','[::1]'].includes(phone.hostname))throw Error('Phone-reachable HTTPS origin required');
+const mode=process.argv[3]??'coach';if(!['coach','arcade'].includes(mode))throw Error('Mode must be coach or arcade');
+const viewer=new URL(mode==='arcade'?'/arcade.html':'/','http://10.0.2.2:5173');
+const setup=mode==='coach'?`(()=>{fetch('/__fireroom/pairing').then(r=>r.json()).then(data=>{const input=document.querySelector('#phoneOrigin');if(input)input.value=data.phoneOrigins?.[0]||${JSON.stringify(phone.origin)};}).catch(()=>{const input=document.querySelector('#phoneOrigin');if(input)input.value=${JSON.stringify(phone.origin)};});})();`:`(()=>{if(document.querySelector('#app')?.dataset.activePairing==='true')return;document.querySelector('#setup')?.click();fetch('/__fireroom/pairing').then(r=>r.json()).then(data=>{const origin=document.querySelector('#origin');if(origin)origin.value=data.phoneOrigins?.[0]||${JSON.stringify(phone.origin)};document.querySelector('#pair')?.click();}).catch(()=>{const origin=document.querySelector('#origin');if(origin)origin.value=${JSON.stringify(phone.origin)};document.querySelector('#pair')?.click();});})();`;
+writeFileSync('platform/vega/src/hosted-target.ts',`// Generated simulator-local target. Not a deployment configuration.\nexport const hostedOrigin=${JSON.stringify(viewer.href)};\nexport const hostedMonitor=${JSON.stringify(readFileSync('platform/vega/probe/hosted-monitor.js','utf8'))};\nexport const hostedSetup=${JSON.stringify(setup)};\n`);
+console.log(`Configured simulator ${mode}; rebuild the native wrapper to apply.`);

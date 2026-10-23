@@ -1,0 +1,17 @@
+/* In document flow below the stage: never covers the bag or demonstration. */
+.atlas-dialogue{display:flex;align-items:stretch;gap:1.3rem;margin:0!important;padding:1.25rem 1.6rem!important;border:2px solid #23354c!important;border-top:5px solid #ae4438!important;border-radius:0 0 12px 12px!important;background:#fff4dc!important;color:#1e3047!important;box-shadow:0 6px 0 #1e304724;min-height:160px;box-sizing:border-box}
+.atlas-dialogue-copy{position:relative;flex:1;min-width:0}
+.atlas-dialogue-heading{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem 1.2rem;border-bottom:1px solid #caba9f;padding-bottom:.55rem}
+.atlas-dialogue-heading strong{font-size:clamp(1.2rem,2vw,1.7rem);font-weight:800;letter-spacing:.025em}
+.atlas-dialogue-state{color:#335878;font-size:.75rem;font-weight:800;letter-spacing:.09em}
+.atlas-dialogue .atlas-dialogue-text{font-size:clamp(1.05rem,1.75vw,1.5rem);line-height:1.5;margin:.7rem 0;color:#1e3047;white-space:pre-line;overflow-wrap:anywhere}
+.atlas-dialogue small{color:#62616a;font-size:.76rem;line-height:1.4}
+.atlas-dialogue-portrait{width:86px;min-width:86px;height:118px;align-self:center;background-repeat:no-repeat;background-size:300% auto;background-position-y:top;border-bottom:3px solid #ae4438;background-color:#e5d9c1;border-radius:5px}
+.atlas-dialogue[data-state="uncertainty"]{border-top-color:#335878!important}
+.atlas-dialogue-enter .atlas-dialogue-copy{animation:atlas-dialogue-arrive .24s ease-out both}
+@keyframes atlas-dialogue-arrive{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){.atlas-dialogue{padding:1rem!important;gap:.8rem}.atlas-dialogue-portrait{width:62px;min-width:62px;height:100px}.atlas-dialogue-state{font-size:.65rem}}
+@media(prefers-reduced-motion:reduce){.atlas-dialogue-enter .atlas-dialogue-copy{animation:none}}
+
+.atlas-dialogue .atlas-dialogue-departing{position:absolute;pointer-events:none;margin:0;animation:atlas-dialogue-depart .12s ease-in forwards}
+@keyframes atlas-dialogue-depart{from{opacity:.65;transform:translateY(0)}to{opacity:0;transform:translateY(-3px)}}

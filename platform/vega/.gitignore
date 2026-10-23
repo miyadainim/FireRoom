@@ -1,0 +1,6 @@
+node_modules/
+build/
+dist/
+buildinfo.json
+assets/fireroom/
+src/hosted-target.ts

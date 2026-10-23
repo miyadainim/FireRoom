@@ -1,0 +1,39 @@
+# Dependencies and builds (all packages)
+node_modules/
+dist/
+build/
+buildinfo.json
+*.tsbuildinfo
+.vite/
+coverage/
+artifacts/
+outputs/
+.DS_Store
+*.log
+
+# Credentials, SDK state, runtime configuration
+.env*
+!.env.example
+*.pem
+*.key
+*.p12
+*.keystore
+.aws/
+.codex/
+.agents/
+platform/vega/src/hosted-target.ts
+platform/vega/src/probe.ts
+platform/vega/src/target.ts
+platform/vega/assets/fireroom/
+
+# Personal camera/pose captures and demo drafts: retain locally, never publish
+recordings/
+fireroom_trials/
+fireroom-pose-trials.json
+/*.mp4
+/*.mov
+
+# Retain validation reports, exclude raw participant data, QR screenshots and logs
+/docs/validation/**
+!/docs/validation/**/
+!/docs/validation/**/*.md

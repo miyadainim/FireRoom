@@ -1,0 +1,19 @@
+import {readFileSync} from 'node:fs';
+import {describe,it,expect} from 'vitest';
+import {assessPreMovementGuard} from '../src/vision/pre-movement-guard';
+import {evaluatePrescribedAttempt,type PrescribedAttemptConfig} from '../src/vision/prescribed';
+import type {PoseFrame} from '../src/shared/contracts';
+const config:PrescribedAttemptConfig={expected:'jab',stance:'orthodox',startMs:0,endMs:3000};
+function pose(t:number,y=.35,x=.35):PoseFrame {const landmarks=Array.from({length:33},()=>({x:.5,y:.5,z:0,visibility:1}));landmarks[0]={x:.5,y:.3,z:0,visibility:1};landmarks[2]={x:.45,y:.28,z:0,visibility:1};landmarks[5]={x:.55,y:.28,z:0,visibility:1};for(const [s,e,w,side] of [[11,13,15,.35],[12,14,16,.65]]){landmarks[s]={x:side,y:.45,z:0,visibility:1};landmarks[e]={x:side,y:.65,z:0,visibility:1};landmarks[w]={x:w===15?x:side,y:w===15?y:.35,z:0,visibility:1};}return {schemaVersion:1,sessionId:'readiness-independent',sequence:t,timestampMs:t,stance:'orthodox',tracking:'tracked',mirrored:false,landmarks,imageSize:{width:1000,height:1000},cameraConfigurationId:'fixed'};}
+function excursion(){return [.75,.75,.75,.65,.55,.45,.1,.1,.1,.35,.35,.35,.35].map((y,i)=>pose(i*100,y));}
+const check=(frames:PoseFrame[])=>assessPreMovementGuard(frames,{hand:'left',startMs:0,endMs:3000});
+describe('independent temporal pre-movement readiness',()=>{
+ it('does not let later guard erase an observed unarmed excursion',()=>{const r=check(excursion());expect(r.status).toBe('deviation');expect(r.onsetMs).not.toBeNull();expect(r.guardBeforeOnsetMs).toBeNull();expect(r.lateGuardMs).not.toBeNull();expect(r.lateGuardMs!).toBeGreaterThan(r.onsetMs!);});
+ it('does not accuse slow movement into guard alone of being an unarmed punch',()=>{const frames=Array.from({length:22},(_,i)=>pose(i*100,.75-Math.min(.4,Math.max(0,i-2)*.025)));expect(check(frames).status).not.toBe('deviation');});
+ it('does not mistake small low-hand jitter for a movement onset',()=>{const frames=Array.from({length:20},(_,i)=>pose(i*100,.75+(i%2?.002:-.002)));expect(check(frames).status).not.toBe('deviation');});
+ it('does not bridge missing eye evidence across the required excursion hold',()=>{const frames=excursion();frames[7].landmarks[2].visibility=.1;expect(check(frames).status).not.toBe('deviation');});
+ it.each(['camera','order','lost'] as const)('abstains on %s context uncertainty',kind=>{const frames=excursion();if(kind==='camera')frames[7].cameraConfigurationId='changed';if(kind==='order')frames[7].timestampMs=frames[6].timestampMs;if(kind==='lost'){frames[7].tracking='lost';frames[7].landmarks=[];}expect(check(frames).status).toBe('cannot-assess');});
+ it('does not claim readiness from a material image geometry jump',()=>{const frames=excursion();for(const f of frames.slice(6))f.landmarks=f.landmarks.map(p=>({...p,x:.5+(p.x-.5)*1.5,y:.45+(p.y-.45)*1.5}));expect(check(frames).status).toBe('cannot-assess');});
+ it('preserves delayed legitimate guard establishment followed by an actual supported cycle',()=>{const frames=Array.from({length:30},(_,i)=>{const t=i*100;if(i<16)return pose(t,.75-Math.min(.4,Math.max(0,i-2)*.04));return pose(t,.35,i===20?.5:i===21?.53:.35);});const r=evaluatePrescribedAttempt(frames,config);expect(r.status).toBe('completed');expect(r.movementSequenceMatched).toBe(true);expect(r.formStatus).toBe('NOT VERIFIED');});
+ it('reports the saved no-initial-guard attempt despite later guard without mutating evidence',()=>{const d=JSON.parse(readFileSync(new URL('../fireroom_trials/fireroom-prescribed-attempt (10).json',import.meta.url),'utf8')) as {frames:PoseFrame[];config:PrescribedAttemptConfig};const before=JSON.stringify(d),r=evaluatePrescribedAttempt(d.frames,d.config);expect(r.status).toBe('rejected');expect(r.reasons.join(' ')).toContain('Starting guard');expect(r.initialReadiness?.status).toBe('deviation');expect(JSON.stringify(d)).toBe(before);});
+});

@@ -1,0 +1,17 @@
+# Frozen v3 fresh clip (11) — October19
+
+Inputs:rawlab11 and suppliedHeavycomparisondef93. Newclipd64e792... distinct5/9/10,Full+Heavy672each12Hz. Rawvalidates, fixedviewpoint-evidence-v3. Source replaywithoutthresholdchanges. No video orreviewedlabels provided, therefore noeventcorrectness,boundaryaccuracyorintentiondetermination.
+
+Heavyreport8completed4left4right,fourguard-adjustmentoutcomes,0partial/uncertain. Eventperiodsleft7.08–8.5,11.08–12.5,16.92–18.08,21.58–22.92;right26.42–27.75,31.42–32.83,36.42–37.58,41.75–42.83. Countsaccordwith8promptsbutdonotprove8correct.
+
+Fullrecomputedfromrawratherthanaskinguserexportagain:9completed4left5right,2guardadjustments,1rightpartial12.75–14.58. Eightcompletedtimingsbroadlyalignprotocol, extra right53.25–53.67s (during/afterocclusionpromptregion). Couldbenonpunchreturn/occlusionmotion,butspecificactionunknownwithoutvideo. Do notclaimfalsepositivebasedpromptalone. Fixedmodeldifferenceinterestingandshouldbereported,notselectmodelposthocforsuccess.
+
+Gate: frozenreplaydescriptiveevidenceavailable; physicalrecognitionprecisionrecall/FP/timingNV. Need matchingvideofromthisclip/useractionconfirmation. No newrecording/reanalysisrequestneeded; originalvideouploadsuffices. No codechanges. Derivedreportsfresh11-20261019/.
+
+## Matching video reviewed
+
+User supplied video_2026-10-19_16-57-52.mp4,56s480x640. Sampledcontactsheetfresh11-20261019/video-review.png. Independentreviewagrees8visiblepunch-likeattempts matchFullandHeavyfirst8completedhand/time. Fullninth53.25–53.67showsrightreturnfrombehindbodytowardguard, no outwardpunch observed: falsecompletedinreviewednegativewindow. Fullpartial13–14occurswhileholdingguard: spuriouscandidate, notcompletedpunch. Heavyhas8matched/noextracompletedinreviewedwindows; do notclaimmodelwinnerfromoneclip.
+
+Sourceinspectionexplains return-onlyfailure: loweringabortexistsinoutward/recoveringbranch butnotarmedbranch. Loweredwristcanremainarmedwitholdguardanchor, cannotstartwhilebeloweligibleheight; whenhandreturnsintoeligibleheightitcrossesdeparturegateandreturnsnearorigin, formingfalsecompleted. RawFullwrist16y344px51.5,372px52,400px53;returns313px53.25,245px53.417,230px53.583;visibility.808–.965 remainsabove.65. Thisisnotnecessarilywristmisplacement; movementdirection/contextgatingiswrong. Needinvalidatearmedoriginonobservedloweringandrequirefreshguardbeforeanothercycle, preservinggenuineoutward/recovery/shortpunches. Noimplementationchangesinthisturn.
+
+Reviewonlysupportspreliminary8matched+1falseFullcompleted,8matchedHeavyonselectedactionwindows. No exhaustivecontinuouslabelingorpreciseboundaryGT; wholecorpusprecision/recall, timingMAE andphysicalformaccuracyremainNOTVERIFIED. Correctthiscaseusingregressiontestsandfreshheldoutvalidationafterversionfreeze.

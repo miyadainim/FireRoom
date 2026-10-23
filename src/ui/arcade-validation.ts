@@ -1,0 +1,10 @@
+import type {PoseFrame} from '../shared/contracts';
+/** Opt-in local diagnostic capture; never uploads pose data or records camera video. */
+export function mountArcadeValidation(menu:HTMLElement){
+ const samples:{frame:PoseFrame;arrivalMs:number}[]=[],events:unknown[]=[],transport:unknown[]=[];let droppedTransport=0,dropped=0,url:string|undefined;
+ const section=document.createElement('section');section.innerHTML='<h2>Live recognition check</h2><p>Local test evidence: up to 600 received pose frames and 200 game events. No camera video. Upload, inference, relay and display timing included (up to 4000 records).</p><button data-save-test>Save live test evidence</button> <button data-clear-test>Clear test evidence</button><a data-test-download hidden>Download test evidence</a>';
+ menu.append(section);const link=section.querySelector<HTMLAnchorElement>('a')!;
+ section.querySelector<HTMLButtonElement>('[data-save-test]')!.onclick=()=>{if(url)URL.revokeObjectURL(url);url=URL.createObjectURL(new Blob([JSON.stringify({schemaVersion:1,kind:'fireroom-arcade-live-validation',samples,events,dropped,transport,droppedTransport,clockNote:'Phone and controller timestamps are independent; compare durations or sequence numbers, not absolute clock values.',physicalActions:'Require human confirmation; predictions are not ground truth'},null,2)],{type:'application/json'}));link.href=url;link.download='fireroom-arcade-live-validation.json';link.hidden=false;};
+ section.querySelector<HTMLButtonElement>('[data-clear-test]')!.onclick=()=>{samples.length=0;events.length=0;transport.length=0;droppedTransport=0;dropped=0;link.hidden=true;if(url)URL.revokeObjectURL(url);url=undefined;};
+ return {timing(value:unknown){if(transport.length===4000){transport.shift();droppedTransport++;}transport.push(value);},frame(frame:PoseFrame,arrivalMs:number){if(samples.length===600){samples.shift();dropped++;}samples.push({frame,arrivalMs});},event(event:unknown){if(events.length===200)events.shift();events.push(event);},dispose(){if(url)URL.revokeObjectURL(url);section.remove();}};
+}
