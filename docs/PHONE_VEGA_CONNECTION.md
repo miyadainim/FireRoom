@@ -1,5 +1,8 @@
 # Phone camera → Vega Coach Mode
 
+Current recommended camera placement: secure the phone **directly in front of you** at about **knee height**, with the camera **tilted upward**. Adjust distance and tilt to keep the face, shoulders, elbows and both hands visible during guard and punches. If you change an already calibrated camera position, restart setup/calibration. This is setup guidance, not a newly measured accuracy result.
+
+
 Status: hosted app + real QR session PASS. Real-phone camera, Full inference, Vega pose receipt, guided attempt and reconnect await live evidence. No synthetic frames used in this integration run.
 
 ## Connection architecture

@@ -850,3 +850,7 @@ User selected MIT. Added LICENSE for original FireRoom code/documentation, copyr
 
 ### Final publication review — 23 October 2026
 User confirmed artwork publication authorization and requested public GitHub push. Recorded artwork generation provenance, retained separate asset licensing, fixed hosted Retry authorization refresh and diagnostics missing-token503. Wrapper TypeScript and3/3testsPASS; final public suite565/565 and web buildPASS. Private credentials/pose/video remain excluded. Publication state will be verified separately; no physical accuracy or new Cloudflare walkthrough claim added.
+
+
+### Camera placement guidance — 23 October 2026
+At user request, recommend a securely placed phone directly in front of the player at knee height tilted upward in Coach pairing, phone companion, Arcade setup, calibration examples and current setup docs. Preserve full face/shoulder/elbow/hand visibility and recalibrate after changing camera placement. Copy only; no CV thresholds or accuracy claims changed.

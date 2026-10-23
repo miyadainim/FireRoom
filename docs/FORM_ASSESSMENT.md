@@ -1,5 +1,8 @@
 # Calibrated prompted form practice
 
+Current recommended camera placement: secure the phone **directly in front of you** at about **knee height**, with the camera **tilted upward**. Adjust distance and tilt to keep the face, shoulders, elbows and both hands visible during guard and punches. If you change an already calibrated camera position, restart setup/calibration. This is setup guidance, not a newly measured accuracy result.
+
+
 ## Repository audit and implementation plan
 
 The repository uses Vite, TypeScript and Three.js without a frontend framework. Phone-only MediaPipe Pose Landmarker 0.10.32 VIDEO inference emits unmodified normalized image landmarks and optional same-frame world landmarks, estimated meters about the hip midpoint. Each joint has a model visibility value. Producer timestamps are monotonic milliseconds; receipt freshness uses a separate local clock. Anatomical indices remain unchanged by mirrored preview. Explicit orthodox maps left to lead; southpaw maps right to lead.

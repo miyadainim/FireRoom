@@ -167,7 +167,7 @@ Open the installed FireRoom tile for later launches while the same services and 
 
 1. On Vega choose **Connect phone camera**. If setup is already open, use its QR. Keep the viewer on the screen while pairing.
 2. Scan with the phone. Open normal Safari/Chrome, tap **Start camera**, grant permission, and wait for model-ready status and a visible skeleton.
-3. Place the phone securely around chest height with your face, shoulders, elbows and both hands visible. Leave room for gentle shadowboxing and keep the camera page foregrounded.
+3. For the recommended setup, place the phone securely **directly in front of you** around **knee height**, with the camera **tilted upward**. Adjust the distance and tilt so your face, shoulders, elbows and both hands remain visible throughout each movement. Leave room for gentle shadowboxing and keep the camera page foregrounded.
 4. Choose matching orthodox/southpaw stance on phone and viewer. Select **Back to training**, then **My stance is ready · Begin lesson**. Stance/foot placement is a self-check, not a measured result.
 5. Watch Atlas. At **YOUR TURN**, hold observable guard for three seconds. Then follow jab, cross and jab–cross demonstrations, returning to guard after each attempt.
 6. Feedback and successful progression happen automatically. Pause, replay, skip, reconnect and diagnostics remain in the secondary menu. Skipping does not record an observed pass.
